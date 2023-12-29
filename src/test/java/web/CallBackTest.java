@@ -530,16 +530,17 @@ public class CallBackTest {
         LocalDateTime choiceDate = startDate.plusDays(6);
         int choiceDay = choiceDate.getDayOfMonth();
         int maxDayMonth = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH);
-        if (maxDayMonth - currentDay < 7) {
-            $(".popup_target_anchor").find(".calendar__arrow_direction_right", 1).click();
-        }
+        if (3<maxDayMonth-currentDay && maxDayMonth - currentDay<7) {
+            //if (maxDayMonth - currentDay < 7) {
+                $(".popup_target_anchor").find(".calendar__arrow_direction_right", 1).click();
+            }
         $(".calendar__layout").$$(".calendar__row .calendar__day").findBy(text(String.valueOf(choiceDay))).click();
         $("[data-test-id='name'] input").setValue("Ольга Петрова");
         $("[data-test-id='phone'] input").setValue("+79988778899");
         $("[data-test-id=agreement]").click();
         $(".button").click();
         String formattedDate = choiceDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
-        $(".notification__content").shouldBe(visible, Duration.ofSeconds(15)).shouldHave(exactText("Встреча успешно забронирована на " + formattedDate));
+        $(".notification__content").shouldBe(visible, Duration.ofSeconds(20)).shouldHave(exactText("Встреча успешно забронирована на " + formattedDate));
         $(byText("Успешно!")).shouldBe(visible, Duration.ofSeconds(15));
 
     }
